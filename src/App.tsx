@@ -2,11 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { modernTheme } from './theme/modernTheme';
 import DashboardLayout from './layout/DashboardLayout';
-import MonitoringPage from './pages/MonitoringPage';
-import OverviewPage from './pages/OverviewPage';
-import AnalyticsPage from './pages/AnalyticsPage';
-import SecurityPage from './pages/SecurityPage';
-import SettingsPage from './pages/SettingsPage';
+import { AnalyticsPage, MonitoringPage, OverviewPage, SecurityPage, SettingsPage } from './pages';
 
 const PlaceholderPage = ({ title }: { title: string }) => (
   <div style={{ padding: '20px' }}><h1>{title}</h1><p>Contenu en cours de développement...</p></div>
