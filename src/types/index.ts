@@ -1,5 +1,3 @@
-// src/types/index.ts
-// src/types/index.ts
 import type { ReactNode } from 'react';
 
 export interface BaseComponentProps {
