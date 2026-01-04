@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# 🚀 Monitoring Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Une plateforme d'analyse haute performance conçue avec une architecture modulaire et scalable, optimisée pour la clarté opérationnelle.
 
-Currently, two official plugins are available:
+## 🛠 Stack Technique & Justifications
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Le choix des technologies a été dicté par des impératifs de **performance**, de **sécurité** et de **maintenabilité**.
 
-## React Compiler
+### ⚛️ Core Framework
+* **React 18 (Vite)** : Choisi pour la rapidité du HMR (Hot Module Replacement) et l'efficacité de l'outil de build.
+* **TypeScript** : Implémentation stricte pour sécuriser le flux de données. L'utilisation de **Generics** sur les composants complexes (Tables, Charts) garantit la cohérence des types.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎨 UI & Visualisation
+* **Material UI (MUI) v6** : Utilisation pour le système de design et la grille flexible. Personnalisation via un **thème moderne** (tokens de couleurs, arrondis 16px).
+* **Recharts** : Bibliothèque de data-viz choisie pour son approche déclarative, permettant une réutilisation poussée des graphiques.
+* **Lucide React** : Iconographie légère et cohérente.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🏗 Principes d'Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Le projet suit des standards d'ingénierie avancés pour éliminer la dette technique dès la conception :
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Atomicité & Réutilisabilité (DRY)
+Tous les éléments visuels ont été refactorisés en composants génériques :
+* **Base Charts** : Les graphiques (Area, Bar, Donut, Radar, Composed) sont abstraits pour accepter n'importe quel dataset via des props typées.
+* **Generic Table** : Un composant unique capable de rendre n'importe quel type de donnée (Logs, Serveurs) grâce à un système de *Render Props* pour les colonnes.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Organisation du Code
+* **Path Aliasing (`@/*`)** : Configuration d'alias pour des imports propres, évitant les chemins relatifs complexes.
+* **Barrel Exports** : Centralisation des exports via des fichiers `index.ts` pour simplifier la structure des imports.
+* **Single Source of Truth** : Les données de simulation et les configurations de colonnes sont centralisées dans `src/data/mockData.tsx`, facilitant le passage futur à une API réelle.
+
+
+
+---
+
+## 📁 Structure du Projet
+
+```text
+src/
+├── components/
+│   ├── charts/      # Graphiques génériques (BaseAreaChart, etc.)
+│   └── ui/          # Composants d'interface (GenericTable, PageHeader, etc.)
+├── data/            # Mock Data & Configurations de colonnes
+├── layout/          # Structure globale (Sidebar, Navigation, Topbar)
+├── pages/           # Vues métiers (Overview, Security, Analytics)
+├── theme/           # Configuration Material UI personnalisée
+├── types/           # Interfaces TypeScript globales
+└── hooks/           # Logique métier réutilisable
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Installation & Lancement
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Suivez ces étapes pour configurer et lancer le projet localement.
+
+### 1. Installation des dépendances
+Utilisez votre gestionnaire de paquets préféré pour installer les modules requis.
+```bash
+npm install
+```
+
+### 2. Lancement du serveur de développement
+Démarre l'application avec le HMR (Hot Module Replacement) activé via Vite.
+```bash
+npm run dev 
+```
+
+### 3. Build pour la production
+Génère une version optimisée et minifiée du projet dans le dossier dist/.
+```bash
+npm run build
+```
+
+### 4. Aperçu du build (Preview)
+Pour tester le rendu final de production localement après le build.
+```bash
+npm run preview
 ```
